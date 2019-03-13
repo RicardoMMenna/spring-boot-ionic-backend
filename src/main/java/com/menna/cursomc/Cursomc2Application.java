@@ -13,6 +13,7 @@ import com.menna.cursomc.domain.Cidade;
 import com.menna.cursomc.domain.Cliente;
 import com.menna.cursomc.domain.Endereco;
 import com.menna.cursomc.domain.Estado;
+import com.menna.cursomc.domain.ItemPedido;
 import com.menna.cursomc.domain.Pagamento;
 import com.menna.cursomc.domain.PagamentoComBoleto;
 import com.menna.cursomc.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.menna.cursomc.repositories.CidadeRepository;
 import com.menna.cursomc.repositories.ClienteRepository;
 import com.menna.cursomc.repositories.EnderecoRepository;
 import com.menna.cursomc.repositories.EstadoRepository;
+import com.menna.cursomc.repositories.ItemPedidoRepository;
 import com.menna.cursomc.repositories.PagamentoRepository;
 import com.menna.cursomc.repositories.PedidoRepository;
 import com.menna.cursomc.repositories.ProdutoRepository;
@@ -55,6 +57,9 @@ public class Cursomc2Application implements CommandLineRunner {
 
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Cursomc2Application.class, args);
@@ -118,7 +123,23 @@ public class Cursomc2Application implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 800.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));		
+		
+		
+		
+		
 	}
 	
-	// parei no 16
+	// parei no 26
 }
