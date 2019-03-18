@@ -28,7 +28,7 @@ public class CategoriaResource {
 	@Autowired
 	private CategoriaService service;
 	
-	@RequestMapping(value="/{id}",method=RequestMethod.GET)
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
 		Categoria obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
@@ -39,19 +39,19 @@ public class CategoriaResource {
 		Categoria obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+			.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-
-	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {
 		Categoria obj = service.fromDTO(objDto);
 		obj.setId(id);
-		service.update(obj);
+		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
-
-	@RequestMapping(value="/{id}",method=RequestMethod.DELETE)
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
@@ -74,5 +74,4 @@ public class CategoriaResource {
 		Page<CategoriaDTO> listDto = list.map(obj -> new CategoriaDTO(obj));
 		return ResponseEntity.ok().body(listDto);
 	}
-
 }

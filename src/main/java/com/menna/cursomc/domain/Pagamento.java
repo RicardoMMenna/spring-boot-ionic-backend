@@ -24,7 +24,7 @@ public abstract class Pagamento implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private Integer estado;
-	
+
 	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="pedido_id")

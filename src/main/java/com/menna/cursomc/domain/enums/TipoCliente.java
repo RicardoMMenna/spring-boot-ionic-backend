@@ -1,7 +1,7 @@
 package com.menna.cursomc.domain.enums;
 
 public enum TipoCliente {
-	
+
 	PESSOAFISICA(1,"Pessoa Fisica"),
 	PESSOAJURIDICA(2, "Pessoa Juridica");
 	
@@ -12,22 +12,23 @@ public enum TipoCliente {
 		this.cod = cod;
 		this.descricao = descricao;
 	}
-
+	
 	public int getCod() {
 		return cod;
 	}
-
-	public String getDescricao() {
+	
+	public String getDescricao () {
 		return descricao;
 	}
-
+	
 	public static TipoCliente toEnum(Integer cod) {
-		if  (cod == null) {
+		
+		if (cod == null) {
 			return null;
 		}
 		
 		for (TipoCliente x : TipoCliente.values()) {
-			if  (cod.equals(x.getCod())) {
+			if (cod.equals(x.getCod())) {
 				return x;
 			}
 		}

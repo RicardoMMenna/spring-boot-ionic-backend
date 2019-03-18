@@ -8,11 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+ 
 @Entity
 public class Cidade implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
@@ -21,11 +21,12 @@ public class Cidade implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="estado_id")
 	private Estado estado;
-
+	
 	public Cidade() {
 	}
 
 	public Cidade(Integer id, String nome, Estado estado) {
+		super();
 		this.id = id;
 		this.nome = nome;
 		this.estado = estado;
@@ -79,7 +80,7 @@ public class Cidade implements Serializable {
 			return false;
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Cidade [id=" + id + ", nome=" + nome + ", estado=" + estado.getNome() + "]";

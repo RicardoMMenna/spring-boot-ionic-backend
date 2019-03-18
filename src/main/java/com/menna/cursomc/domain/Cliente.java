@@ -20,11 +20,12 @@ import com.menna.cursomc.domain.enums.TipoCliente;
 @Entity
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
@@ -49,7 +50,7 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo.getCod();
+		this.tipo = (tipo==null) ? null : tipo.getCod();
 	}
 
 	public Integer getId() {
@@ -143,7 +144,7 @@ public class Cliente implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
+	}	
 
 	@Override
 	public String toString() {

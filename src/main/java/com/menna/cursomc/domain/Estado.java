@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Estado implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
@@ -29,6 +29,7 @@ public class Estado implements Serializable {
 	}
 
 	public Estado(Integer id, String nome) {
+		super();
 		this.id = id;
 		this.nome = nome;
 	}
@@ -81,7 +82,7 @@ public class Estado implements Serializable {
 			return false;
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Estado [id=" + id + ", nome=" + nome + "]";
