@@ -21,10 +21,10 @@ import com.menna.cursomc.services.exceptions.ObjectNotFoundException;
 public class CategoriaService {
 
 	@Autowired
-	private CategoriaRepository repo;
+	private CategoriaRepository categRepo;
 
 	public Categoria find(Integer id) {
-		Optional<Categoria> obj = repo.findById(id);
+		Optional<Categoria> obj = this.categRepo.findById(id);
 		
 		//return obj.orElse(null);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -32,25 +32,25 @@ public class CategoriaService {
 	}
 
 	public List<Categoria> findAll() {
-		return repo.findAll();
+		return this.categRepo.findAll();
 	}
 	
 	@Transactional
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
-		return repo.save(obj);
+		return this.categRepo.save(obj);
 	}
 
 	public Categoria update(Categoria obj) {
 		Categoria newObj = this.find(obj.getId());
 		this.updateData(newObj, obj);
-		return repo.save(newObj);
+		return this.categRepo.save(newObj);
 	}
 	
 	public void delete(Integer id) {
 		this.find(id);
 		try {
-			repo.deleteById(id);
+			this.categRepo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Nao e possivel excluir uma categoria que possui produtos");
 		}
@@ -58,7 +58,7 @@ public class CategoriaService {
 	
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repo.findAll(pageRequest);
+		return this.categRepo.findAll(pageRequest);
 	}
 	
 	public Categoria fromDTO(CategoriaDTO objDto) {

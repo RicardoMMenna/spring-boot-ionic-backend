@@ -26,13 +26,13 @@ import com.menna.cursomc.services.exceptions.ObjectNotFoundException;
 public class ClienteService {
 
 	@Autowired
-	private ClienteRepository repo;
+	private ClienteRepository clientRepo;
 	
 	@Autowired 
 	private EnderecoRepository enderecoRepo;
 
 	public Cliente find(Integer id) {
-		Optional<Cliente> obj = repo.findById(id);
+		Optional<Cliente> obj = this.clientRepo.findById(id);
 		
 		//return obj.orElse(null);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -42,7 +42,7 @@ public class ClienteService {
 	@Transactional
 	public Cliente insert(Cliente obj) {
 		obj.setId(null);
-		obj = repo.save(obj);
+		obj = this.clientRepo.save(obj);
 		enderecoRepo.saveAll(obj.getEnderecos());
 		return obj;
 	}
@@ -50,25 +50,25 @@ public class ClienteService {
 	public Cliente update(Cliente obj) {
 		Cliente newObj = this.find(obj.getId());
 		this.updateData(newObj, obj);
-		return repo.save(newObj);
+		return this.clientRepo.save(newObj);
 	}
 	
 	public void delete(Integer id) {
 		this.find(id);
 		try {
-			repo.deleteById(id);
+			this.clientRepo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Nao e possivel excluir porque ha pedidos relacionados");
 		}
 	}
 
 	public List<Cliente> findAll() {
-		return repo.findAll();
+		return this.clientRepo.findAll();
 	}
 	
 	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repo.findAll(pageRequest);
+		return this.clientRepo.findAll(pageRequest);
 	}
 	
 	public Cliente fromDTO(ClienteDTO objDto) {
