@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.menna.cursomc.domain.Categoria;
 import com.menna.cursomc.dto.CategoriaDTO;
@@ -27,13 +28,14 @@ public class CategoriaService {
 		
 		//return obj.orElse(null);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto n�o encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+				"Objeto nao encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 
 	public List<Categoria> findAll() {
 		return repo.findAll();
 	}
 	
+	@Transactional
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
 		return repo.save(obj);
