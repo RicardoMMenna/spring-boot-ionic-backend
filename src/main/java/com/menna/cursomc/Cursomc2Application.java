@@ -142,5 +142,5 @@ public class Cursomc2Application implements CommandLineRunner {
 		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));		
 	}
 	
-	// parei no 38
+	// parei no 42
 }

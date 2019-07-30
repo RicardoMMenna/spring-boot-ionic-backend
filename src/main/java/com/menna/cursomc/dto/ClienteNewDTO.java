@@ -2,27 +2,44 @@ package com.menna.cursomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.menna.cursomc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@NotEmpty(message="O Nome deve ser informado")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
 
+	@NotEmpty(message="O Email deve ser informado")
+	@Email(message="Email invalido")
 	private String email;
 
+	@NotEmpty(message="O CPF/CNPJ deve ser informado")
 	private String cpfOuCnpj;
 
 	private Integer tipo;
 	
+	@NotEmpty(message="O Logradouro deve ser informado")
 	private String logradouro;
 
+	@NotEmpty(message="O Numero deve ser informado")
 	private String numero;
 
 	private String complemento;
 
 	private String bairro;
 
+	@NotEmpty(message="O CEP deve ser informado")
 	private String cep;
 	
+	@NotEmpty(message="O Telefone 1 deve ser informado")
 	private String telefone1;
 
 	private String telefone2;

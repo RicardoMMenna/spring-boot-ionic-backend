@@ -33,15 +33,15 @@ public class Cliente implements Serializable {
 	
 	//@OneToMany(mappedBy="cliente")  - valida e nao poermite a eliminacao
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
-	private List<Endereco> enderecos = new ArrayList<Endereco>();
+	private List<Endereco> enderecos = new ArrayList<>();
 	
 	@ElementCollection
 	@CollectionTable(name="TELEFONE")
-	private Set<String> telefones = new HashSet<String>();
+	private Set<String> telefones = new HashSet<>();
 
 	@JsonIgnore
 	@OneToMany(mappedBy="cliente")
-	private List<Pedido> pedidos = new ArrayList<Pedido>();
+	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Cliente() {
 	}
