@@ -80,9 +80,4 @@ public class Cidade implements Serializable {
 			return false;
 		return true;
 	}
-	
-	@Override
-	public String toString() {
-		return "Cidade [id=" + id + ", nome=" + nome + ", estado=" + estado.getNome() + "]";
-	}
 }
